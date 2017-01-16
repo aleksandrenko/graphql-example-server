@@ -1,0 +1,14 @@
+{
+  "name": "graphql-example-server",
+  "version": "1.0.0",
+  "description": "Example graphql server with in-memory CRUD",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "aleksandrenko@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
