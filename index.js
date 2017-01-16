@@ -6,6 +6,17 @@ var { buildSchema } = require('graphql');
 var schema = buildSchema(`
   enum Episode { NEWHOPE, EMPIRE, JEDI }
   
+  input MessageInput {
+    content: String
+    author: String
+  }
+  
+  type Message {
+    id: ID!
+    content: String
+    author: String
+  }
+  
   type Person {
    id: ID!
    name: String
@@ -43,6 +54,12 @@ var schema = buildSchema(`
     users: [Person]
     activities: [Activity]
     interests: [Interest]
+    getMessage(id: ID!): Message
+  }
+  
+  type Mutation {
+    createMessage(input: MessageInput): Message
+    updateMessage(id: ID!, input: MessageInput): Message
   }
 `);
 
@@ -55,15 +72,16 @@ var root = {
     friends: [],
     interests: []
   },
-  {
-    id: 1,
-    name: 'Nikolay Aleksandrenko',
-    homepage: 'http://aleksandrenko.com',
-    friends: [],
-    interests: []
-  }],
+    {
+      id: 1,
+      name: 'Nikolay Aleksandrenko',
+      homepage: 'http://aleksandrenko.com',
+      friends: [],
+      interests: []
+    }],
   activities: () => [],
-  interests: () => []
+  interests: () => [],
+  getMessage: (id) => {}
 };
 
 var app = express();
