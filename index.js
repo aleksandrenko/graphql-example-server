@@ -9,38 +9,23 @@ console.log('customTypes', customTypes);
 // Maps id to User object
 var db = {};
 
-var AddressType = new graphql.GraphQLObjectType({
-  name: 'AddressType',
-  fields: {
-    street: { type: graphql.GraphQLString },
-    number: { type: graphql.GraphQLInt },
-    formatted: {
-      type: graphql.GraphQLString,
-      resolve(obj) {
-        return obj.number + ' ' + obj.street
-      }
-    }
-  }
-});
 
 // Define the User type
 var userType = new graphql.GraphQLObjectType({
   name: 'User',
   fields: {
-    id: { type: graphql.GraphQLString },
+    id: { type: graphql.GraphQLID },
     name: { type: graphql.GraphQLString },
     gender: { type: graphql.GraphQLString },
-    odd: { type: customTypes.Odd },
-    age: { type: graphql.GraphQLString },
-    url: { type: graphql.GraphQLString },
-    email: { type: graphql.GraphQLString },
-    password: { type: graphql.GraphQLString },
-    birthDate: { type: graphql.GraphQLString },
-    favoriteHour: { type: graphql.GraphQLString },
-    favoriteDaytime: { type: graphql.GraphQLString },
-    favoriteLetter: { type: graphql.GraphQLString },
-    location: { type: customTypes.GraphQLGeoPoint },
-    address: { type: AddressType }
+    age: { type: graphql.GraphQLInt },
+    url: { type: customTypes.GraphQLURL },
+    email: { type: customTypes.GraphQLEmail },
+    password: { type: customTypes.GraphQLPassword },
+    birthDate: { type: customTypes.GraphQLDate },
+    favoriteHour: { type: customTypes.GraphQLTime },
+    favoriteDaytime: { type: customTypes.GraphQLDateTime },
+    favoriteLetter: { type: customTypes.GraphQLString },
+    location: { type: customTypes.GraphQLGeoPoint }
   }
 });
 

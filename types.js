@@ -57,31 +57,65 @@ var PersonType = new GraphQLObjectType({
 // });
 
 var types = {
-  Odd: new graphql.GraphQLScalarType({
-    name: 'Odd',
-    description: 'odd value',
+  GraphQLEmail: new graphql.GraphQLScalarType({
+    name: 'Email',
+    description: 'GraphQLEmail',
     serialize(_value) { return _value; },
-    parseValue(_value) {
-      //validation here
-      if (_value === 1) {
-        throw new graphql.GraphQLError('Example error.');
+    parseValue(ast) {
+
+      var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      if (!re.test(ast.value)) {
+        throw new graphql.GraphQLError('Invalid Email format.', [ast]);
       }
 
-      return _value;
+      return ast.value;
     },
-    parseLiteral(_value) {
-      return null;
-    }
+    parseLiteral(_value) { return _value; }
   }),
-  GraphQLEmail: {},
-  GraphQLURL: {},
-  GraphQLDate: {},
-  GraphQLTime: {},
-  GraphQLDateTime: {},
-  GraphQLString: {},
-  GraphQLPassword: {},
+  GraphQLURL: new graphql.GraphQLScalarType({
+    name: 'URL',
+    description: 'GraphQLURL',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
+  GraphQLDate: new graphql.GraphQLScalarType({
+    name: 'GraphQLDate',
+    description: 'Date',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
+  GraphQLTime: new graphql.GraphQLScalarType({
+    name: 'GraphQLTime',
+    description: 'Time',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
+  GraphQLDateTime: new graphql.GraphQLScalarType({
+    name: 'GraphQLDateTime',
+    description: 'DateTime',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
+  GraphQLString: new graphql.GraphQLScalarType({
+    name: 'GraphQLString',
+    description: 'String',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
+  GraphQLPassword: new graphql.GraphQLScalarType({
+    name: 'GraphQLPassword',
+    description: 'Password',
+    serialize(_value) { return _value; },
+    parseValue(_value) { return _value; },
+    parseLiteral(_value) { return _value; }
+  }),
   GraphQLGeoPoint: new graphql.GraphQLObjectType({
-    name: 'GraphQLGeoPoint',
+    name: 'GeoPoint',
     fields: {
       lat: { type: new graphql.GraphQLNonNull(graphql.GraphQLFloat) },
       lon: { type: new graphql.GraphQLNonNull(graphql.GraphQLFloat) },
