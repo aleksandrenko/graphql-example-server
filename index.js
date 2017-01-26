@@ -4,11 +4,24 @@ var graphql = require('graphql');
 
 var customTypes = require("./types");
 
-console.log('customTypes', customTypes);
-
 // Maps id to User object
 var db = {};
 
+
+var commentTypes = new graphql.GraphQLObjectType({
+  name: 'Comment',
+  fields: {
+    id: { type: graphql.GraphQLID }
+  }
+});
+
+var articleTypes = new graphql.GraphQLObjectType({
+  name: 'Article',
+  fields: {
+    id: { type: graphql.GraphQLID },
+    comments: { type: commentTypes }
+  }
+});
 
 // Define the User type
 var userType = new graphql.GraphQLObjectType({
@@ -25,9 +38,12 @@ var userType = new graphql.GraphQLObjectType({
     favoriteHour: { type: customTypes.GraphQLTime },
     favoriteDaytime: { type: customTypes.GraphQLDateTime },
     favoriteLetter: { type: customTypes.GraphQLString },
-    location: { type: customTypes.GraphQLGeoPoint }
+    location: { type: customTypes.GraphQLGeoPoint },
+    likesArticles: { type: articleTypes },
+    likesComments: { type: commentTypes }
   }
 });
+
 
 // Define the Query type
 var queryType = new graphql.GraphQLObjectType({
@@ -41,6 +57,10 @@ var queryType = new graphql.GraphQLObjectType({
       resolve: function (_, {id}) {
         return db[id];
       }
+    },
+    users: {
+      type: userType,
+      resolve: function () { return db; }
     }
   }
 });
