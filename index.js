@@ -5,26 +5,72 @@ var graphql = require('graphql');
 var customTypes = require("./types");
 
 // Maps id to User object
-var db = {};
+var db = {
+  activities: [],
+  users: [],
+  places: [],
+  photos: [],
+  tags: []
+};
 
-
-var commentTypes = new graphql.GraphQLObjectType({
-  name: 'Comment',
+var userType = new graphql.GraphQLObjectType({
+  name: 'User',
   fields: {
-    id: { type: graphql.GraphQLID }
+    id: { type: graphql.GraphQLID },
+    // visitedPlaces: { type: placeType },
+    // photos: { type: photoType }
   }
 });
 
-var articleTypes = new graphql.GraphQLObjectType({
-  name: 'Article',
+var tagType = new graphql.GraphQLObjectType({
+  name: 'Tag',
   fields: {
     id: { type: graphql.GraphQLID },
-    comments: { type: commentTypes }
+    name: { type: graphql.GraphQLString },
+    creator: { type: userType }
+  }
+});
+
+var photoType = new graphql.GraphQLObjectType({
+  name: 'Photo',
+  fields: {
+    id: { type: graphql.GraphQLID },
+    source: { type: graphql.GraphQLString },
+    tags: { type: tagType }
+  }
+});
+
+var activityType = new graphql.GraphQLObjectType({
+  name: 'Activity',
+  fields: {
+    id: { type: graphql.GraphQLID },
+    title: { type: graphql.GraphQLString },
+    description: { type: graphql.GraphQLString },
+    photos: { type: photoType },
+    slug: {
+      type: graphql.GraphQLString,
+      resolve(obj) {
+        return obj.title.split(' ').join('-');
+      }
+    },
+    tags: { type: tagType }
+  }
+});
+
+var placeType = new graphql.GraphQLObjectType({
+  name: 'Place',
+  fields: {
+    id: { type: graphql.GraphQLID },
+    name: { type: graphql.GraphQLString },
+    description: { type: graphql.GraphQLString },
+    location: { type: graphql.GraphQLString },
+    tags: { type: tagType },
+    photos: { type: photoType }
   }
 });
 
 // Define the User type
-var userType = new graphql.GraphQLObjectType({
+var exampleType = new graphql.GraphQLObjectType({
   name: 'User',
   fields: {
     id: { type: graphql.GraphQLID },
@@ -38,9 +84,7 @@ var userType = new graphql.GraphQLObjectType({
     favoriteHour: { type: customTypes.GraphQLTime },
     favoriteDaytime: { type: customTypes.GraphQLDateTime },
     favoriteLetter: { type: customTypes.GraphQLString },
-    location: { type: customTypes.GraphQLGeoPoint },
-    likesArticles: { type: articleTypes },
-    likesComments: { type: commentTypes }
+    location: { type: customTypes.GraphQLGeoPoint }
   }
 });
 
@@ -51,16 +95,26 @@ var queryType = new graphql.GraphQLObjectType({
   fields: {
     user: {
       type: userType,
-      args: {
-        id: { type: graphql.GraphQLString }
-      },
-      resolve: function (_, {id}) {
-        return db[id];
-      }
+      // args: {
+      //   id: { type: graphql.GraphQLString }
+      // },
+      resolve: (id) => db.users[0]
     },
     users: {
       type: userType,
-      resolve: function () { return db; }
+      resolve: () => db.users
+    },
+    tags: {
+      type: tagType,
+      resolve: () => db.tags
+    },
+    places: {
+      type: placeType,
+      resolve: () => db.places
+    },
+    activities: {
+      type: activityType,
+      resolve: () => db.activities
     }
   }
 });
