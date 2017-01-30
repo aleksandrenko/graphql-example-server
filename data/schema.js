@@ -4,9 +4,13 @@ const schema = `
   type User {
     id: Int
     name: String
+    email: Email
+    password: Password
     visitedPlaces: [Place]
     photos: [Photo]
     birthDate: Date
+    website: Url
+    friends: [User]
   }
   
   type Activity {
@@ -21,7 +25,7 @@ const schema = `
     id: Int
     title: String
     description: String
-    places: [Place]
+    location: [GeoPoint]
     tags: [Tag]
   }
   
