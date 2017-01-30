@@ -1,3 +1,5 @@
+var graphql = require('graphql');
+
 const resolverMap = {
   Query: {
     users() {
@@ -11,9 +13,25 @@ const resolverMap = {
     },
   },
   Mutation: {
-    deleteUser(_, { id }) {
-      return true;
-    },
+    createUser(user) {},
+    updateUser(id, user) {},
+    deleteUser(id) {},
+
+    createActivity(activity) {},
+    updateActivity(id, activity) {},
+    deleteActivity(id) {},
+
+    createPlace(place) {},
+    updatePlace(id, place) {},
+    deletePlace(id) {},
+
+    createTag(tag) {},
+    updateTag(id, tag) {},
+    deleteTag(id) {},
+
+    createPhoto(photo) {},
+    updatePhoto(id, photo) {},
+    deletePhoto(id) {}
   },
 
   Date: {
@@ -29,6 +47,12 @@ const resolverMap = {
   },
   Email: {
     __parseValue(value) {
+      var formatRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (!formatRegex.test(value)) {
+        throw new graphql.GraphQLError('Email Validation error.');
+      }
+
       return value;
     },
     __serialize(value) {

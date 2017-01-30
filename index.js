@@ -31,7 +31,7 @@ const executableSchema = graphqlTools.makeExecutableSchema({
 var app = express();
 app.use('/graphql', graphqlHTTP({
   schema: executableSchema,
-  rootValue: root,
+  rootValue: global,
   graphiql: true,
 }));
 

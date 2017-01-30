@@ -1,11 +1,47 @@
 const schema = `
+  # Date scalar description
   scalar Date
+  
+  # Email scalar description
+  scalar Email
+  
+  # Url scalar description
+  scalar Url
+  
+  # Password scalar description
+  scalar Password
+  
+  input GeoPointInput {
+    lat: Float!
+    lng: Float!
+  }
+  
+  # GeoPoint description
+  type GeoPoint {
+    lat: Float!
+    lng: Float!
+  }
 
-  type User {
-    id: Int
+
+  input UserInput {
     name: String
     email: Email
     password: Password
+    isActive: Boolean
+    visitedPlaces: [PlaceInput]
+    photos: [PhotoInput]
+    birthDate: Date
+    website: Url
+    friends: [UserInput]
+  }
+
+  # User description
+  type User {
+    id: Int!
+    name: String
+    email: Email
+    password: Password
+    isActive: Boolean
     visitedPlaces: [Place]
     photos: [Photo]
     birthDate: Date
@@ -13,31 +49,62 @@ const schema = `
     friends: [User]
   }
   
+  
+  input ActivityInput {
+    title: String!
+    description: String
+    places: [PlaceInput]
+    tags: [TagInput]
+  }
+  
+  # Activity description
   type Activity {
-    id: Int
-    title: String
+    id: Int!
+    title: String!
     description: String
     places: [Place]
     tags: [Tag]
   }
+ 
   
+  input PlaceInput {
+    title: String!
+    description: String!
+    location: [GeoPointInput]
+    tags: [TagInput]
+  }
+  
+  # Place description
   type Place {
-    id: Int
-    title: String
-    description: String
+    id: Int!
+    title: String!
+    description: String!
     location: [GeoPoint]
     tags: [Tag]
   }
   
-  type Tag {
-    id: Int
+  
+  input TagInput {
     name: String!
   }
   
-  type Photo {
-    id: Int
-    url: String
+  # Tag description
+  type Tag {
+    id: Int!
+    name: String!
   }
+    
+  
+  input PhotoInput {
+    url: String!
+  }
+  
+  # Photo description
+  type Photo {
+    id: Int!
+    url: String!
+  }
+  
   
   # the schema allows the following query:
   type Query {
@@ -51,7 +118,25 @@ const schema = `
   
   # this schema allows the following mutation:
   type Mutation {
-    deleteUser (id: Int!): User
+    createUser(user: UserInput):User
+    updateUser(id: ID!, user: UserInput):User
+    deleteUser(id: ID!):User
+    
+    createActivity(activity: ActivityInput):Activity 
+    updateActivity(id: ID!, activity: ActivityInput):Activity
+    deleteActivity(id: ID!):Activity
+     
+    createPlace(place: PlaceInput):Place
+    updatePlace(id: ID!, place: PlaceInput):Place
+    deletePlace(id: ID!):Place
+    
+    createTag(tag: TagInput):Tag
+    updateTag(id: ID!, tag: TagInput):Tag
+    deleteTag(id: ID!):Tag
+    
+    createPhoto(photo: PhotoInput):Photo
+    updatePhoto(id: ID!, photo: PhotoInput):Photo
+    deletePhoto(id: ID!):Photo
   }
   
   # we need to tell the server which types represent the root query
