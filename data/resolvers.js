@@ -27,6 +27,50 @@ const resolverMap = {
       return ast.toString();
     }
   },
+  Email: {
+    __parseValue(value) {
+      return value;
+    },
+    __serialize(value) {
+      return value;
+    },
+    __parseLiteral(ast) {
+      return value;
+    }
+  },
+  Password: {
+    __parseValue(value) {
+      return value;
+    },
+    __serialize(value) {
+      return value;
+    },
+    __parseLiteral(ast) {
+      return value;
+    }
+  },
+  Url: {
+    __parseValue(value) {
+      return value;
+    },
+    __serialize(value) {
+      return value;
+    },
+    __parseLiteral(ast) {
+      return value;
+    }
+  },
+  GeoPoint: {
+    __parseValue(value) {
+      return value;
+    },
+    __serialize(value) {
+      return value;
+    },
+    __parseLiteral(ast) {
+      return value;
+    }
+  },
 
   // Author: {
   //   posts(author) {
