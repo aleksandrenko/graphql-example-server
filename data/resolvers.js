@@ -1,16 +1,22 @@
 var graphql = require('graphql');
 
+// Maps id to User object
+var db = {
+  activities: [],
+  users: [],
+  places: [],
+  photos: [],
+  tags: []
+};
+
 const resolverMap = {
   Query: {
-    users() {
-      return [{
-        id: 2531,
-        name: 'Stephen',
-        visitedPlaces: [],
-        photos: [],
-        birthDate: 124125
-      }];
-    },
+    user(id) { return db.users.find(user => user.id === id) },
+    users() { return db.users; },
+    activities() { return db.activities; },
+    photos() { return db.photos; },
+    tags() { return db.tags; },
+    places() { return db.places; }
   },
   Mutation: {
     createUser(user) {},
@@ -94,18 +100,7 @@ const resolverMap = {
     __parseLiteral(ast) {
       return value;
     }
-  },
-
-  // Author: {
-  //   posts(author) {
-  //     return filter(posts, { authorId: author.id });
-  //   },
-  // },
-  // Post: {
-  //   author(post) {
-  //     return find(authors, { id: post.authorId });
-  //   },
-  // },
+  }
 };
 
 module.exports = resolverMap;

@@ -2,15 +2,6 @@ var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var graphql = require('graphql');
 
-// Maps id to User object
-var db = {
-  activities: [],
-  users: [],
-  places: [],
-  photos: [],
-  tags: []
-};
-
 const logger = {
   log: (entry) => console.log(entry)
 };

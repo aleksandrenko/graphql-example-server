@@ -108,12 +108,12 @@ const schema = `
   
   # the schema allows the following query:
   type Query {
-    user: User
+    user(id: Int): User
     users: [User]
     activities: [Activity]
     photos: [Photo]
     tags: [Tag]
-    places: [User]
+    places: [Place]
   }
   
   # this schema allows the following mutation:
