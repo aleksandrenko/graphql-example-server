@@ -1,6 +1,13 @@
 # graphql-example-server
 
+
+```
 query {
+  user(id:1) {
+    id
+    name
+    email
+  }
   users {
     id
     name
@@ -16,9 +23,13 @@ query {
     }
     birthDate
     website
-    friends {
-      id
-      name
+    FriendsConnection {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
 
@@ -30,9 +41,13 @@ query {
       id
       title
     }
-    tags {
-      id
-      name
+    tagsConnection {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
 
@@ -54,9 +69,13 @@ query {
       lat
       lng
     }
-    tags {
-      id
-      name
+    TagsConnection {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
 }

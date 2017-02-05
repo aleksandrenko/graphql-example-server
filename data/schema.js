@@ -1,4 +1,29 @@
 const schema = `
+  interface Node {
+    id: ID!
+  }
+  
+  interface Edge {
+    id: ID!
+    node: Node
+  }
+
+  interface Connection {
+    nodes: [Node]
+    edges: [Edge]
+    pageInfo: PageInfo
+    totalCount: Int!
+  }
+
+  # page info object - an object to hold the paging and cursors information. github like
+  type PageInfo {
+    endCursor: String
+    hasNextPage: String
+    hasPreviousPage: String
+    startCursor: String
+  }
+
+
   # Date scalar description
   scalar Date
   
@@ -10,6 +35,8 @@ const schema = `
   
   # Password scalar description
   scalar Password
+  
+  
   
   input GeoPointInput {
     lat: Float!
@@ -36,8 +63,8 @@ const schema = `
   }
 
   # User description
-  type User {
-    id: Int!
+  type User implements Node {
+    id: ID!
     name: String
     email: Email
     password: Password
@@ -46,9 +73,30 @@ const schema = `
     photos: [Photo]
     birthDate: Date
     website: Url
-    friends: [User]
+    FriendsConnection: FriendsConnection
   }
   
+  type FriendEdge implements Edge {
+    id: ID!
+    node: User,
+    since: Date!
+  }
+  
+  # Fiends
+  type FriendsConnection implements Connection {
+    nodes: [User]
+    edges: [FriendEdge]
+    pageInfo: PageInfo
+    totalCount: Int!
+  }
+  
+  
+  type TagsConnection implements Connection  {
+    nodes: [Node]
+    edges: [TagEdge]
+    pageInfo: PageInfo
+    totalCount: Int!
+  }
   
   input ActivityInput {
     title: String!
@@ -58,12 +106,12 @@ const schema = `
   }
   
   # Activity description
-  type Activity {
-    id: Int!
+  type Activity implements Node {
+    id: ID!
     title: String!
     description: String
     places: [Place]
-    tags: [Tag]
+    tagsConnection: TagsConnection
   }
  
   
@@ -75,12 +123,12 @@ const schema = `
   }
   
   # Place description
-  type Place {
-    id: Int!
+  type Place implements Node {
+    id: ID!
     title: String!
     description: String!
     location: [GeoPoint]
-    tags: [Tag]
+    TagsConnection: TagsConnection
   }
   
   
@@ -88,9 +136,14 @@ const schema = `
     name: String!
   }
   
+  type TagEdge implements Edge {
+    id: ID!
+    node: Tag
+  }
+  
   # Tag description
-  type Tag {
-    id: Int!
+  type Tag implements Node {
+    id: ID!
     name: String!
   }
     
@@ -100,15 +153,15 @@ const schema = `
   }
   
   # Photo description
-  type Photo {
-    id: Int!
+  type Photo implements Node {
+    id: ID!
     url: String!
   }
   
   
   # the schema allows the following query:
   type Query {
-    user(id: Int): User
+    user(id: ID): User
     users: [User]
     activities: [Activity]
     photos: [Photo]
