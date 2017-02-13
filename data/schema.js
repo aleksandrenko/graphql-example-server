@@ -1,166 +1,31 @@
+const userSchema = require('./types/user');
+const activitySchema = require('./types/activity');
+const placeSchema = require('./types/place');
+const tagSchema = require('./types/tag');
+const photoSchema = require('./types/photo');
+
+const customTypes = require('./types/customTypes');
+const systemSchema = require('./types/system');
+
 const schema = `
-  interface Node {
-    id: ID!
-  }
-  
-  interface Edge {
-    id: ID!
-    node: Node
-  }
+  ${systemSchema}
 
-  interface Connection {
-    nodes: [Node]
-    edges: [Edge]
-    pageInfo: PageInfo
-    totalCount: Int!
-  }
-
-  # page info object - an object to hold the paging and cursors information. github like
-  type PageInfo {
-    endCursor: String
-    hasNextPage: String
-    hasPreviousPage: String
-    startCursor: String
-  }
-
-
-  # Date scalar description
-  scalar Date
+  ${customTypes}
   
-  # Email scalar description
-  scalar Email
+  ${userSchema}
   
-  # Url scalar description
-  scalar Url
+  ${activitySchema}
   
-  # Password scalar description
-  scalar Password
+  ${placeSchema}  
   
+  ${tagSchema}  
   
-  
-  input GeoPointInput {
-    lat: Float!
-    lng: Float!
-  }
-  
-  # GeoPoint description
-  type GeoPoint {
-    lat: Float!
-    lng: Float!
-  }
-
-
-  input UserInput {
-    name: String
-    email: Email
-    password: Password
-    isActive: Boolean
-    visitedPlaces: [PlaceInput]
-    photos: [PhotoInput]
-    birthDate: Date
-    website: Url
-    friends: [UserInput]
-  }
-
-  # User description
-  type User implements Node {
-    id: ID!
-    name: String
-    email: Email
-    password: Password
-    isActive: Boolean
-    visitedPlaces: [Place]
-    photos: [Photo]
-    birthDate: Date
-    website: Url
-    FriendsConnection: FriendsConnection
-  }
-  
-  type FriendEdge implements Edge {
-    id: ID!
-    node: User,
-    since: Date!
-  }
-  
-  # Fiends
-  type FriendsConnection implements Connection {
-    nodes: [User]
-    edges: [FriendEdge]
-    pageInfo: PageInfo
-    totalCount: Int!
-  }
-  
-  
-  type TagsConnection implements Connection  {
-    nodes: [Node]
-    edges: [TagEdge]
-    pageInfo: PageInfo
-    totalCount: Int!
-  }
-  
-  input ActivityInput {
-    title: String!
-    description: String
-    places: [PlaceInput]
-    tags: [TagInput]
-  }
-  
-  # Activity description
-  type Activity implements Node {
-    id: ID!
-    title: String!
-    description: String
-    places: [Place]
-    tagsConnection: TagsConnection
-  }
- 
-  
-  input PlaceInput {
-    title: String!
-    description: String!
-    location: [GeoPointInput]
-    tags: [TagInput]
-  }
-  
-  # Place description
-  type Place implements Node {
-    id: ID!
-    title: String!
-    description: String!
-    location: [GeoPoint]
-    TagsConnection: TagsConnection
-  }
-  
-  
-  input TagInput {
-    name: String!
-  }
-  
-  type TagEdge implements Edge {
-    id: ID!
-    node: Tag
-  }
-  
-  # Tag description
-  type Tag implements Node {
-    id: ID!
-    name: String!
-  }
-    
-  
-  input PhotoInput {
-    url: String!
-  }
-  
-  # Photo description
-  type Photo implements Node {
-    id: ID!
-    url: String!
-  }
-  
+  ${photoSchema}  
   
   # the schema allows the following query:
   type Query {
+    node(id: ID): Node
+    nodes(id:[ID]): [Node]
     user(id: ID): User
     users: [User]
     activities: [Activity]
