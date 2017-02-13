@@ -1,3 +1,2 @@
-1. String, Number, Int, float ... with limitations max, min, maxLength, minLength
-2. Example graphql query 
-3. Different schema types with connections and fields
+1. Remove all connections from the create and update mutations. It's not possible to connect and not existing node.
+2. Create mutations for creating, updating and deleting relationships. It's something i cannot go around when the connection is an object on it's own (with id and props ...).

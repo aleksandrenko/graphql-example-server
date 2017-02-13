@@ -79,3 +79,27 @@ query {
     }
   }
 }
+```
+
+mutation queries:
+
+``` 
+mutation CreateUser($userInput: UserInput) {
+  createUser(user: $userInput) {
+    name
+    email
+  }
+}
+
+query vars:
+{ 
+	"userInput": {
+    "name": "Nikolay Aleksandrenko",
+    "email": "aleksandrenko@gmail.com",
+    "password": "pawwrod123",
+    "isActive": false,
+    "birthDate": "01/01/1983",
+    "website": "aleksandrenko.com"
+  }
+}
+```
