@@ -1,4 +1,4 @@
-const schema = `
+const types = `
 
   # Tag description
   type Tag implements Node {
@@ -24,4 +24,13 @@ const schema = `
   
 `;
 
-module.exports = schema;
+const mutations = `
+  createTag(tag: TagInput):Tag
+  updateTag(id: ID!, tag: TagInput):Tag
+  deleteTag(id: ID!):Tag
+`;
+
+module.exports = {
+  types,
+  mutations
+};

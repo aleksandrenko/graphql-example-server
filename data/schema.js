@@ -12,49 +12,29 @@ const schema = `
 
   ${customTypes}
   
-  ${userSchema}
+  ${userSchema.types}
   
-  ${activitySchema}
+  ${activitySchema.types}
   
-  ${placeSchema}  
+  ${placeSchema.types}  
   
-  ${tagSchema}  
+  ${tagSchema.types}  
   
-  ${photoSchema}  
+  ${photoSchema.types}  
   
   # the schema allows the following query:
   type Query {
-    node(id: ID): Node
     nodes(id:[ID]): [Node]
-    user(id: ID): User
-    users: [User]
-    activities: [Activity]
-    photos: [Photo]
-    tags: [Tag]
-    places: [Place]
+    users(id: [ID]): [User]
+    activities(id: [ID]): [Activity]
+    photos(id: [ID]): [Photo]
+    tags(id: [ID]): [Tag]
+    places(id: [ID]): [Place]
   }
   
   # this schema allows the following mutation:
   type Mutation {
-    createUser(user: UserInput):User
-    updateUser(id: ID!, user: UserInput):User
-    deleteUser(id: ID!):User
-    
-    createActivity(activity: ActivityInput):Activity 
-    updateActivity(id: ID!, activity: ActivityInput):Activity
-    deleteActivity(id: ID!):Activity
-     
-    createPlace(place: PlaceInput):Place
-    updatePlace(id: ID!, place: PlaceInput):Place
-    deletePlace(id: ID!):Place
-    
-    createTag(tag: TagInput):Tag
-    updateTag(id: ID!, tag: TagInput):Tag
-    deleteTag(id: ID!):Tag
-    
-    createPhoto(photo: PhotoInput):Photo
-    updatePhoto(id: ID!, photo: PhotoInput):Photo
-    deletePhoto(id: ID!):Photo
+    ${userSchema.mutation}
   }
   
   # we need to tell the server which types represent the root query

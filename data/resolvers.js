@@ -11,7 +11,6 @@ var db = {
 
 const resolverMap = {
   Query: {
-    user(id) { return db.users.find(user => user.id === id) },
     users() { return db.users; },
     activities() { return db.activities; },
     photos() { return db.photos; },
@@ -19,25 +18,11 @@ const resolverMap = {
     places() { return db.places; }
   },
   Mutation: {
-    createUser(user) {},
-    updateUser(id, user) {},
+    createUser(userInput) {},
+    updateUser(id, userInput) {},
     deleteUser(id) {},
 
-    createActivity(activity) {},
-    updateActivity(id, activity) {},
-    deleteActivity(id) {},
-
-    createPlace(place) {},
-    updatePlace(id, place) {},
-    deletePlace(id) {},
-
-    createTag(tag) {},
-    updateTag(id, tag) {},
-    deleteTag(id) {},
-
-    createPhoto(photo) {},
-    updatePhoto(id, photo) {},
-    deletePhoto(id) {}
+    addFriend(userId, friendId) {},
   },
 
   Date: {

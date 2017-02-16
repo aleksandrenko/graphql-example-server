@@ -1,4 +1,4 @@
-const schema = `
+const types = `
 
   # Photo description
   type Photo implements Node {
@@ -25,4 +25,13 @@ const schema = `
   
 `;
 
-module.exports = schema;
+const mutations = `
+  createPhoto(photo: PhotoInput):Photo
+  updatePhoto(id: ID!, photo: PhotoInput):Photo
+  deletePhoto(id: ID!):Photo
+`;
+
+module.exports = {
+  types,
+  mutations
+};

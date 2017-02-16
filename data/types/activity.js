@@ -1,4 +1,4 @@
-const schema = `
+const types = `
   
   # Activity description
   type Activity implements Node {
@@ -16,4 +16,21 @@ const schema = `
   
 `;
 
-module.exports = schema;
+const mutations = `
+    createActivity(activity: ActivityInput):Activity 
+    updateActivity(id: ID!, activity: ActivityInput):Activity
+    deleteActivity(id: ID!):Activity
+    
+    addTag():TagConnection
+    updateTag():TagConnection
+    removeTag():TagConnection
+    
+    addPlace():PlaceConnection
+    updatePlace():PlaceConnection
+    removePlace():PlaceConnection
+`;
+
+module.exports = {
+  types,
+  mutations
+};

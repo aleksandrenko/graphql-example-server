@@ -1,4 +1,4 @@
-const schema = `
+const types = `
 
   # Place description
   type Place implements Node {
@@ -42,4 +42,17 @@ const schema = `
   
 `;
 
-module.exports = schema;
+const mutations = `
+  createPlace(place: PlaceInput):Place
+  updatePlace(id: ID!, place: PlaceInput):Place
+  deletePlace(id: ID!):Place
+  
+  addTag():TagConnection
+  updateTag():TagConnection
+  removeTag():TagConnection
+`;
+
+module.exports = {
+  types,
+  mutations
+};

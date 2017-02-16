@@ -1,4 +1,4 @@
-const schema = `
+const types = `
 
   # User description
   type User implements Node {
@@ -39,4 +39,15 @@ const schema = `
   
 `;
 
-module.exports = schema;
+const mutation = `
+  createUser(user: UserInput):User
+  updateUser(id: !ID, user: UserInput):User
+  deleteUser(id: !ID):User
+  
+  addFriend(userId: !ID, friendId: !ID):FriendsConnection
+`;
+
+module.exports = {
+  types,
+  mutation
+};
