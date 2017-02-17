@@ -7,11 +7,11 @@ const types = `
     email: Email
     password: Password
     isActive: Boolean
-    visitedPlaces: VisitedPlacesConnection
-    photos: PhotosConnection
     birthDate: Date
-    website: Url
+    website: Url    
+    photos: PhotosConnection
     friends: FriendsConnection
+    visitedPlaces: VisitedPlacesConnection
   }
   
   input UserInput {
@@ -20,7 +20,7 @@ const types = `
     password: Password
     isActive: Boolean
     birthDate: Date
-    website: Url
+    website: Url  
   }
 
   type FriendEdge implements Edge {
@@ -41,11 +41,11 @@ const types = `
 
 const mutation = `
   createUser(user: UserInput):User
-  updateUser(id: !ID, user: UserInput):User
-  deleteUser(id: !ID):User
-  
-  addFriend(userId: !ID, friendId: !ID):FriendsConnection
+  updateUser(id: ID, user: UserInput):User
+  deleteUser(id: ID):User
 `;
+
+// addFriend(userId: !ID, friendId: !ID):FriendsConnection
 
 module.exports = {
   types,

@@ -3,7 +3,20 @@ var graphql = require('graphql');
 // Maps id to User object
 var db = {
   activities: [],
-  users: [],
+  users: [
+    {
+      id: Date.now(),
+      name: 'Default Name',
+      email: 'default@gmail.com',
+      password: '537272362',
+      isActive: true,
+      birthDate: Date.now(),
+      website: 'http://www.site.com',
+      photos: [],
+      friends: [],
+      visitedPlaces: []
+    }
+  ],
   places: [],
   photos: [],
   tags: []
@@ -17,12 +30,40 @@ const resolverMap = {
     tags() { return db.tags; },
     places() { return db.places; }
   },
-  Mutation: {
-    createUser(userInput) {},
-    updateUser(id, userInput) {},
-    deleteUser(id) {},
 
-    addFriend(userId, friendId) {},
+  Mutation: {
+    createUser(obj, args, context, info) {
+
+      //http://dev.apollodata.com/tools/graphql-tools/resolvers.html
+      //obj: The object that contains the result returned from the resolver on the parent field, or, in the case of a top-level Query field, the rootValue passed from the server configuration. This argument enables the nested nature of GraphQL queries.
+      //args: An object with the arguments passed into the field in the query.
+      //context: This is an object shared by all resolvers in a particular query, and is used to contain per-request state, including authentication information, dataloader instances, and anything else that should be taken into account when resolving the query. If you’re using Apollo Server, read about how to set the context in the setup documentation.
+      //info: This argument should only be used in advanced cases, but it contains information about the execution state of the query, including the field name, path to the field from the root, and more. It’s only documented in the GraphQL.js source code.
+
+      let inputUser = args.user;
+      let newUser = {
+        id: Date.now(),
+        name: inputUser.name || '',
+        email: inputUser.email || '',
+        password: inputUser.password || '',
+        isActive: inputUser.isActive || '',
+        birthDate: inputUser.birthDate || '',
+        website: inputUser.website || '',
+        photos: [],
+        friends: [],
+        visitedPlaces: []
+      };
+
+      db.users.push(newUser);
+
+      return newUser;
+    },
+    updateUser(obj, args, context, info) {
+      return db.users[0];
+    },
+    deleteUser(obj, args, context, info) {
+      return db.users[0];
+    }
   },
 
   Date: {
