@@ -37,6 +37,8 @@ const schema = `
     ${userSchema.mutations}
     ${activitySchema.mutations}
     ${placeSchema.mutations}
+    ${tagSchema.mutations}
+    ${photoSchema.mutations}
   }
   
   # we need to tell the server which types represent the root query

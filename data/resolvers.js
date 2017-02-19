@@ -64,14 +64,42 @@ const resolverMap = {
     deleteUser(obj, args, context, info) {
       return db.users[0];
     },
-    addFriend(obj, args, context, info) {
+    addUserFriend(obj, args, context, info) {
       return {
         nodes: [],
         edges: [],
         pageInfo: {},
         totalCount: 1
       };
-    }
+    },
+    deleteUser(obj, args, context, info) {
+      return {}
+    },
+
+    createPlace(obj, args, context, info) { return {} }, //(place: PlaceInput):Place
+    updatePlace(obj, args, context, info) { return {} }, //(id: ID!, place: PlaceInput):Place
+    deletePlace(obj, args, context, info) { return {} }, //(id: ID!):Place
+
+    addPlaceTag(obj, args, context, info) { return {} }, //(placeId: ID!, tagId: ID!):TagsConnection
+    removePlaceTag(obj, args, context, info) { return {} }, //(placeId: ID!, tagId: ID!):TagsConnection
+
+    createActivity(obj, args, context, info) { return {} }, //(activity: ActivityInput):Activity
+    updateActivity(obj, args, context, info) { return {} }, //(id: ID!, activity: ActivityInput):Activity
+    deleteActivity(obj, args, context, info) { return {} }, //(id: ID!):Activity
+
+    addActivityTag(obj, args, context, info) { return {} }, //(activityId: ID!, tagId: ID!):TagsConnection
+    removeActivityTag(obj, args, context, info) { return {} }, //(activityId: ID!, tagId: ID!):TagsConnection
+
+    addActivityPlace(obj, args, context, info) { return {} }, //(activityId: ID!, placeId: ID!):PlacesConnection
+    removeActivityPlace(obj, args, context, info) { return {} }, //(activityId: ID!, placeId: ID!):PlacesConnection
+
+    createTag(obj, args, context, info) { return {} }, //(tag: TagInput):Tag
+    updateTag(obj, args, context, info) { return {} }, //(id: ID!, tag: TagInput):Tag
+    deleteTag(obj, args, context, info) { return {} }, //(id: ID!):Tag
+
+    createPhoto(obj, args, context, info) { return {} }, //(photo: PhotoInput):Photo
+    updatePhoto(obj, args, context, info) { return {} }, //(id: ID!, photo: PhotoInput):Photo
+    deletePhoto(obj, args, context, info) { return {} }, //(id: ID!):Photo
   },
 
   Date: {

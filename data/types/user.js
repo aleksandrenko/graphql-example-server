@@ -43,7 +43,8 @@ const mutations = `
   createUser(user: UserInput):User
   updateUser(id: ID, user: UserInput):User
   deleteUser(id: ID):User
-  addFriend(userId: ID!, friendId: ID!):FriendsConnection
+  
+  addUserFriend(userId: ID!, friendId: ID!):FriendsConnection
 `;
 
 module.exports = {
