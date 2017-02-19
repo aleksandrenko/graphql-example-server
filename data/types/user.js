@@ -39,15 +39,14 @@ const types = `
   
 `;
 
-const mutation = `
+const mutations = `
   createUser(user: UserInput):User
   updateUser(id: ID, user: UserInput):User
   deleteUser(id: ID):User
+  addFriend(userId: ID!, friendId: ID!):FriendsConnection
 `;
-
-// addFriend(userId: !ID, friendId: !ID):FriendsConnection
 
 module.exports = {
   types,
-  mutation
+  mutations
 };

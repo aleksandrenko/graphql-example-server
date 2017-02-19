@@ -21,13 +21,11 @@ const mutations = `
     updateActivity(id: ID!, activity: ActivityInput):Activity
     deleteActivity(id: ID!):Activity
     
-    addTag():TagConnection
-    updateTag():TagConnection
-    removeTag():TagConnection
+    addTag(activityId: ID!, tagId: ID!):TagsConnection
+    removeTag(activityId: ID!, tagId: ID!):TagsConnection
     
-    addPlace():PlaceConnection
-    updatePlace():PlaceConnection
-    removePlace():PlaceConnection
+    addPlace(activityId: ID!, placeId: ID!):PlacesConnection
+    removePlace(activityId: ID!, placeId: ID!):PlacesConnection
 `;
 
 module.exports = {

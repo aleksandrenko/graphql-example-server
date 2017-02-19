@@ -47,9 +47,8 @@ const mutations = `
   updatePlace(id: ID!, place: PlaceInput):Place
   deletePlace(id: ID!):Place
   
-  addTag():TagConnection
-  updateTag():TagConnection
-  removeTag():TagConnection
+  addTag(placeId: ID!, tagId: ID!):TagsConnection
+  removeTag(placeId: ID!, tagId: ID!):TagsConnection
 `;
 
 module.exports = {

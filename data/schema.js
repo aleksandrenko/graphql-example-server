@@ -34,7 +34,9 @@ const schema = `
   
   # this schema allows the following mutation:
   type Mutation {
-    ${userSchema.mutation}
+    ${userSchema.mutations}
+    ${activitySchema.mutations}
+    ${placeSchema.mutations}
   }
   
   # we need to tell the server which types represent the root query

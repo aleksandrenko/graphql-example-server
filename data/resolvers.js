@@ -63,6 +63,14 @@ const resolverMap = {
     },
     deleteUser(obj, args, context, info) {
       return db.users[0];
+    },
+    addFriend(obj, args, context, info) {
+      return {
+        nodes: [],
+        edges: [],
+        pageInfo: {},
+        totalCount: 1
+      };
     }
   },
 
